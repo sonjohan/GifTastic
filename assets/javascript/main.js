@@ -113,5 +113,5 @@ $(document).ready(function () {
   if (!giphy.started) {
     giphy.setStage();
     giphy.started = true;
-  }
+  };
 });
