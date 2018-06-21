@@ -25,17 +25,24 @@
     <div class="container">
 
         <div class="row">
-            <div class="col-12">
+            <div class="col-8 float-left">
                 <div id="buttons" class="mt-3"></div>
-
-                <form id="form">
-                    <label for="add-input" class="text-light">ADD ONE MORE!</label>
-                    <input type="text" id="add-input">
-                    <input id="add-value" class="btn-success" type="submit" value="Add my button">
-                </form>
-
-                <div id="display-gifs"></div>
             </div>
+            <div class="col-4 mt-3">
+                <div class="form-group">
+                    <form id="form">
+                        <label for="add-input" class="text-light">ADD YOUR OWN BUTTON!</label>
+                        <input type="text" id="add-input" class="form-control" placeholder="Name of your button">
+                        <small id="help-text" class="form-text text-muted mb-1">Enter the name of your own button.</small>
+                        <input id="add-value" class="btn btn-success float-left" type="submit" value="Add my button">
+                    </form>
+                    <button id="clear-results" class="btn btn-danger ml-2">Clear Results</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div id="display-gifs" class="col-12"></div>
         </div>
     </div>
 </body>

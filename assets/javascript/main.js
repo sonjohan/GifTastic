@@ -8,7 +8,7 @@ $(document).ready(function () {
       // Generate all buttons in array
       for (var i = 0; i < this.gifArray.length; i++) {
         var a = $('<button>');
-        a.addClass('gif btn-danger mr-1 mb-1');
+        a.addClass('gif btn btn-primary mr-1 mb-1');
         a.attr('data-name', this.gifArray[i]);
         a.text(this.gifArray[i]);
         $('#buttons').append(a);
@@ -18,19 +18,26 @@ $(document).ready(function () {
       $('.gif').on('click', function (event) {
         giphy.callApi($(this).attr('data-name'));
       });
+
+      // Add Button
+      this.addButton();
+
+      //Clear Results
+      this.clearResults();
     },
 
     addButton: function () {
-      $('#add-input').on('click', function () { $('#add-input').val(''); });
       $("#add-value").on('click', function (event) {
         event.preventDefault();
-        if ($('#add-input').val().trim() === '' || $('#add-input').val().trim() === 'Please enter a name') {
-          $('#add-input').val('Please enter a name');
-        } else {
+
+        if ($('#add-input').val().trim().length != 0) {
           giphy.gifArray.push($('#add-input').val().trim());
           $('#buttons').empty();
-          giphy.setStage();
           $('#add-input').val('');
+          $('#help-text').html('Enter the name of your own button.').toggleClass('text-muted text-danger');
+          giphy.setStage();
+        } else {
+          $('#help-text').html('Please enter a valid name.').toggleClass('text-danger text-muted');
         };
       });
     },
@@ -42,9 +49,9 @@ $(document).ready(function () {
         url: queryURL,
         method: 'GET'
       }).then(function (response) {
-        var arr = giphy.results;
+        let arr = giphy.results;
         giphy.results = arr.concat(response.data);
-        console.log(giphy.results);
+        console.log(response.data);
         for (var i = 0; i < giphy.results.length; i++) {
           var a = $('<div class="card item float-left mr-2 mb-3">');
           var rating = giphy.results[i].rating;
@@ -61,7 +68,6 @@ $(document).ready(function () {
           $('#display-gifs').prepend(a);
         };
 
-        giphy.addButton();
         giphy.changeState();
       });
     },
@@ -77,6 +83,13 @@ $(document).ready(function () {
           $(this).attr('data-state', 'still');
         };
       });
+    },
+
+    clearResults: function(){
+      $('#clear-results').on('click', function(){
+        $('#display-gifs').empty();
+        giphy.results.length = 0;
+      })
     }
   };
 
