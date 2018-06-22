@@ -29,14 +29,18 @@ $(document).ready(function () {
           $('#add-input').val('');
           $('#buttons').empty();
           $('#help-text').html('Enter the name of your own button.');
+          console.log('Valiation complete');
           if ($('#help-text').hasClass('text-danger')) {
             $('#help-text').removeClass('text-danger').addClass('text-muted');
+            console.log('Valiation complete and color was changed');
           };
           giphy.setStage();
         } else {
-          $('#help-text').html('Please enter a valid name.')
+          $('#help-text').html('Please enter a valid name.');
+          console.log('Valiation incomplete');
           if ($('#help-text').hasClass('text-muted')) {
             $('#help-text').removeClass('text-muted').addClass('text-danger');
+            console.log('Valiation incomplete and color was changed');
           };
         };
       });
@@ -59,8 +63,6 @@ $(document).ready(function () {
         giphy.changeState();
         //Clear Results
         giphy.clearResults();
-        // Add Button
-        giphy.addButton();
       });
     },
 
@@ -82,7 +84,7 @@ $(document).ready(function () {
 
         a.append(d);
         a.append(c);
-        
+
         $('#display-gifs').prepend(a);
       };
 
@@ -110,8 +112,6 @@ $(document).ready(function () {
     }
   };
 
-  if (!giphy.started) {
-    giphy.setStage();
-    giphy.started = true;
-  };
+  giphy.setStage();
+  giphy.addButton();
 });
